@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  sample-app:
+    build: .
+    container_name: sample-app
+    ports:
+      - "3000:3000"
+    environment:
+      - AWS_ACCESS_KEY_ID=accesskey
+      - AWS_SECRET_ACCESS_KEY=secretkey
+      - AWS_REGION=us-east-1
+      - DYNAMODB_ENDPOINT=http://dynamodb-local:8000
+    depends_on:
+      - dynamodb-local
+
+  dynamodb-local:
+    image: amazon/dynamodb-local
+    container_name: dynamodb-local
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/home/dynamodblocal/data
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal/data"
+
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin
+    ports:
+      - "8001:8001"
+    environment:
+      DYNAMO_ENDPOINT: "http://dynamodb-local:8000"
+      AWS_REGION: "us-east-1"
+      AWS_ACCESS_KEY_ID: local
+      AWS_SECRET_ACCESS_KEY: local
+    depends_on:
+      - dynamodb-local
