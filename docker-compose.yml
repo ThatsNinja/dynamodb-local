@@ -5,10 +5,10 @@ services:
     build: .
     container_name: sample-app
     ports:
-      - "3000:3000"
+      - "5000:5000"
     environment:
-      - AWS_ACCESS_KEY_ID=accesskey
-      - AWS_SECRET_ACCESS_KEY=secretkey
+      - AWS_ACCESS_KEY_ID=local
+      - AWS_SECRET_ACCESS_KEY=local
       - AWS_REGION=us-east-1
       - DYNAMODB_ENDPOINT=http://dynamodb-local:8000
     depends_on:
