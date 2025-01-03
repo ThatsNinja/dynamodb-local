@@ -14,7 +14,7 @@ app.config['DYNAMO_TABLES'] = [
     }
 ]
 app.config['DYNAMO_ENABLE_LOCAL'] = True
-app.config['DYNAMO_LOCAL_HOST'] = 'localhost'
+app.config['DYNAMO_LOCAL_HOST'] = 'dynamodb-local'
 app.config['DYNAMO_LOCAL_PORT'] = 8000
 
 dynamodb = Dynamo(app)
