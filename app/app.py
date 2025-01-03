@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError
 from flask_dynamo import Dynamo
@@ -33,4 +34,8 @@ def healthcheck():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    with app.app_context():
+        dynamodb.create_all()
+
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=True, host="0.0.0.0", port=port)
