@@ -1,13 +1,10 @@
 from flask import Flask, jsonify
-# import boto3
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError
 from flask_dynamo import Dynamo
 
 app = Flask(__name__)
 
 # Configure DynamoDB Local
-# dynamodb = boto3.resource('dynamodb', endpoint_url='http://localhost:8000')
-
 app.config['DYNAMO_TABLES'] = [
     {
         'TableName': 'users',
